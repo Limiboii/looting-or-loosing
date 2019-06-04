@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
+    //Orginal movement ej gjort av mig. Flyttade in detta i Player scriptet för att kunna använda Interfacet IAlive.
     Rigidbody2D rb;
     private float timer;
     public float cooldown;

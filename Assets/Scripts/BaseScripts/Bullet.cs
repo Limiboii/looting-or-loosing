@@ -5,9 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
+    //Har gjort allt
     public float speed;
     public int dmg;
 
+    private void Start()
+    {
+        StartCoroutine(Die());
+    }
     private void Update()
     {
         transform.Translate((Vector2.right * speed), Space.Self);
@@ -26,7 +31,7 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator Die()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         Destroy(gameObject);
     }
 }

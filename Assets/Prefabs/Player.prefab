@@ -208,8 +208,8 @@ MonoBehaviour:
   timerBar: {fileID: 0}
   boost: 1.5
   anim: {fileID: 5776238656914848892}
-  ArPrefab: {fileID: 0}
-  shotgunPrefab: {fileID: 0}
+  ArPrefab: {fileID: 5776238656914848866}
+  shotgunPrefab: {fileID: 5776238656914848866}
   hp: 20
 --- !u!61 &5776238656914848893
 BoxCollider2D:

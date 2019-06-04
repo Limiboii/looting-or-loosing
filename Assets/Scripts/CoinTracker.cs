@@ -5,6 +5,7 @@ using TMPro;
 
 public class CoinTracker : MonoBehaviour
 {
+    //inte jag
     public TextMeshProUGUI scoreText;
 
     public int totalScore;

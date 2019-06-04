@@ -8,6 +8,7 @@ using System;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IAlive
 {
+    //En bool som skulle förhindra movement för spelaren ifall t.ex någonting slowar/stunnar. Ifall den inte är true kan inte spelaren röra på sig.
     private bool moveable = true;
     public bool CanMove => moveable;
 
@@ -32,17 +33,21 @@ public class Player : MonoBehaviour, IAlive
 
     public int hp;
 
+    SpriteRenderer sr;
+
     void Start()
     {
         moveable = true;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         timer = cooldown;
+
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-
+        //Animationer har jag inte gjort men jag vet hur man gör dom iaf
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
@@ -58,6 +63,11 @@ public class Player : MonoBehaviour, IAlive
 
         if (Input.GetButtonDown("Fire1"))
             Attack();
+    }
+
+    protected void FixedUpdate()
+    {
+        sr.color = Color.Lerp(sr.color, Color.white, Time.deltaTime / 0.2f);
     }
 
     public void Move()
@@ -79,6 +89,7 @@ public class Player : MonoBehaviour, IAlive
 
     }
 
+    //Jag fixade till så att dashen fungerade men jag gjorde den inte från start.
     void SpeedBoost()
     {
         if (timer >= cooldown && !runBoost)
@@ -97,17 +108,20 @@ public class Player : MonoBehaviour, IAlive
         runBoost = false;
     }
 
+    //Detta fungerar ifall man inte har några andra "Children". Härifrån och ner har jag gjort allt.
     void Attack()
     {
         GetComponentInChildren<Gun>().Shoot();
-        GameObject.FindWithTag("Weapon").GetComponent<Gun>().Shoot();
     }
 
     public void TakeDmg(int dmg)
     {
+        sr.color = new Color(2, 0, 0);
+
         hp -= dmg;
         if (hp <= 0)
             Die();
+
     }
 
     public void Die()

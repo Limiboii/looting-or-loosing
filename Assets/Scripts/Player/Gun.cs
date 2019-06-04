@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    //Allt i detta script har jag gjort
     public GameObject projectile;
     public GameObject firePoint;
 
@@ -21,6 +22,8 @@ public class Gun : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+
+        //vapnet åt det håll jag går åt så att jag skjuter åt rätt håll.
 
         if (horizontal > 0)
             transform.rotation = Quaternion.Euler(0, 0, 0);

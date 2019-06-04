@@ -33,6 +33,7 @@ public class BaseEnemy : MonoBehaviour, IAlive
 
     protected virtual void Start()
     {
+        //Hitta spelaren så att man kan följa efter den. Samt hämta action då vi byter prefab och får då den som nästa target.
         target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         GameObject.FindWithTag("Player").GetComponent<Player>().ShotgunGun += FindNewTarget;
         rb = GetComponent<Rigidbody2D>();
@@ -43,6 +44,7 @@ public class BaseEnemy : MonoBehaviour, IAlive
     void FindNewTarget()
     {
         target = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        GameObject.FindWithTag("Player").GetComponent<Player>().ShotgunGun += FindNewTarget;
     }
 
     protected virtual void Update()
@@ -62,13 +64,18 @@ public class BaseEnemy : MonoBehaviour, IAlive
 
     public void FindPath()
     {
-        targetPos = new Vector2(target.position.x, target.position.y);
-        transform.LookAt(targetPos);
-        transform.Rotate(Vector3.up * 90);
+        //Hitta target och kolla mot den.
+        if (target != null)
+        {
+            targetPos = new Vector2(target.position.x, target.position.y);
+            transform.LookAt(targetPos);
+            transform.Rotate(Vector3.up * 90);
+        }
     }
 
     public virtual void Move()
     {
+        //Följ efter target
         Vector2 movement = new Vector2(target.position.x - gameObject.transform.position.x, target.position.y - gameObject.transform.position.y);
         if (CanMove)
             rb.velocity = movement * speed * Time.deltaTime;
@@ -81,10 +88,12 @@ public class BaseEnemy : MonoBehaviour, IAlive
         if (canAttack && collision.gameObject.tag == "Player")
         {
             canAttack = false;
+            //Får TakeDmg funktionen genom Interface.
             collision.gameObject.GetComponent<IAlive>().TakeDmg(dmg);
         }
     }
 
+    //Har gjort allt utom detta.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Melee")
@@ -115,6 +124,7 @@ public class BaseEnemy : MonoBehaviour, IAlive
     public void Die()
     {
         int u = Random.Range(0, 100);
+        //Detta skulle användas ifall jag fick in att coins åker en liten bit. Men det hände ej.
         int coinAmount = Random.Range(1, 11);
         if (u > 75)
         {

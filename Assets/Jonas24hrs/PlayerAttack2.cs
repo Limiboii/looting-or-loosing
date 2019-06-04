@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack2 : MonoBehaviour
 {
+    //Har inte rört.
     public GameObject[] playerAttackObject;
     public GameObject attackRight, attackLeft, attackUp, attackDown;
     bool up, down, right, left;

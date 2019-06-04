@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimateZucc : MonoBehaviour
 {
+    //Används inte.
     public GameObject realEnemy;
     private void Start()
     {

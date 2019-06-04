@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Coin : MonoBehaviour
 {
+    //RequireComponent och nullCheck
     public int score = 1;
     public GameObject effect;
     public GameObject sound;
@@ -17,12 +18,13 @@ public class Coin : MonoBehaviour
             GameObject controller = GameObject.FindWithTag("GameController");
             if (controller != null)
             {
-                Instantiate(sound, gameObject.transform.position, Quaternion.identity);
+                if (sound != null)
+                    Instantiate(sound, gameObject.transform.position, Quaternion.identity);
                 CoinTracker tracker = controller.GetComponent<CoinTracker>();
 
                 Destroy(gameObject);
-
-                Instantiate(effect, transform.position, Quaternion.identity);
+                if (effect != null)
+                    Instantiate(effect, transform.position, Quaternion.identity);
 
                 if (tracker != null)
                 {
